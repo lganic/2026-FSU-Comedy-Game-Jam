@@ -27,6 +27,10 @@ public class ResourceTarget : MonoBehaviour
     public Color TargetColor;
 
     static readonly int BaseColorId = Shader.PropertyToID("_BaseColor");
+    static readonly int ColorId = Shader.PropertyToID("_Color");
+
+    int _colorPropId;
+    Color _initialColor;
 
     void Start()
     {
@@ -39,6 +43,21 @@ public class ResourceTarget : MonoBehaviour
     {
         _renderer = GetComponent<Renderer>();
         _mpb = new MaterialPropertyBlock();
+
+        var mat = _renderer.sharedMaterial;
+        if (mat != null && mat.HasProperty(BaseColorId))
+            _colorPropId = BaseColorId;
+        else
+            _colorPropId = ColorId;
+
+        // Grab the starting color from the material (fallback to white if missing)
+        if (mat != null && mat.HasProperty(_colorPropId))
+            _initialColor = mat.GetColor(_colorPropId);
+        else
+        {
+            _initialColor = Color.white;
+            Debug.Log("Fallback");
+        }
     }
 
     void OnEnable() {
@@ -93,10 +112,14 @@ public class ResourceTarget : MonoBehaviour
         float t = AmountOfResource / AmountRequired;
         t = Mathf.Clamp(t, 0, 1);
 
-        Color c = Color.Lerp(Color.white, TargetColor, t);
+        // Overlay tint amount (white -> TargetColor)
+        Color overlay = Color.Lerp(Color.white, TargetColor, t);
+
+        // Combine with original material color
+        Color combined = _initialColor * overlay; // multiply blend
 
         _renderer.GetPropertyBlock(_mpb);
-        _mpb.SetColor(BaseColorId, c);
+        _mpb.SetColor(_colorPropId, combined);
         _renderer.SetPropertyBlock(_mpb);
     }
 }
