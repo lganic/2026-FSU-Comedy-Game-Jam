@@ -35,6 +35,11 @@ public class InventoryManager : MonoBehaviour
         SetInventory(2);
     }
 
+    public int getNumInInvetory()
+    {
+        return inventory_images.Count;
+    }
+
     private float getImagePos(int total, int index)
     {
         float b = -(total - 1) * spacing / 2;
@@ -63,8 +68,24 @@ public class InventoryManager : MonoBehaviour
             img.preserveAspect = true;
 
             imgObj.transform.localPosition = new Vector3(getImagePos(segments.Count, i), 0, 0);
+
+            inventory_images.Add(img);
         }
 
+    }
+
+    public bool CanAddToInventory()
+    {
+        return segments.Count != inventory_images.Count;
+    }
+
+    public void Add1ToInventory()
+    {
+        if (!CanAddToInventory()) return;
+
+        int current_number = inventory_images.Count;
+
+        SetInventory(current_number + 1);
     }
 
     public void BuildBar(int count)
