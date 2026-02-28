@@ -105,8 +105,6 @@ public class ResourceTarget : MonoBehaviour
                 }
 
             }
-
-            rt.RemoveResource(TargetResource);
         }
 
         float t = AmountOfResource / AmountRequired;

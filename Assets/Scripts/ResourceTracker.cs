@@ -81,12 +81,12 @@ public class ResourceTracker : MonoBehaviour
     {
         if (type == 1)
         {
-            return !close_enough(FoodQuant, 0);
+            return FoodQuant > 0;
         }
 
         else if (type == 2)
         {
-            return !close_enough(WaterQuant, 0);
+            return WaterQuant > 0;
         }
         else
         {
