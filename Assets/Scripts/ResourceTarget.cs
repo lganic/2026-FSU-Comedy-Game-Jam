@@ -79,6 +79,12 @@ public class ResourceTarget : MonoBehaviour
             if (AmountOfResource >= AmountRequired)
             {
                 sm.AddToScore(Reward);
+
+                if (TryGetComponent<AutoRedHighlight>(out AutoRedHighlight arh))
+                {
+                    arh.SetHighlightVisible(false);
+                }
+
             }
 
             rt.RemoveResource(TargetResource);
