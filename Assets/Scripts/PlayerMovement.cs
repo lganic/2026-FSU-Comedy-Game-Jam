@@ -14,6 +14,10 @@ public class PlayerInputController : MonoBehaviour
     public float jumpForce = 5f;
     public float gravity = -9.81f;
 
+    [Header("Physics")]
+    public float grounding_distance = 1.5f;
+    
+
     [Header("Look")]
     public float lookSensitivity = 120f; // degrees per second
 
@@ -69,11 +73,24 @@ public class PlayerInputController : MonoBehaviour
 
     void HandleGravityAndJump()
     {
-        if (controller.isGrounded)
+
+        RaycastHit hit;
+        float maxDistance = 10f; // Maximum distance to check
+
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, maxDistance))
+        {
+            Debug.DrawRay(transform.position, Vector3.down * hit.distance, Color.green);
+        }
+
+        Debug.Log(hit.distance);
+
+
+        if (hit.distance < grounding_distance)
         {
             if (jumpAction.action.WasPressedThisFrame())
             {
                 velocity.y = jumpForce;
+                Debug.Log("Did a jumo");
             }
         }
 
