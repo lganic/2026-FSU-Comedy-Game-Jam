@@ -9,8 +9,13 @@ public class ResourceTracker : MonoBehaviour
 
     [Range(10f, 100.0f)]
     public float FoodRefillSpeed = 10;
-    [Range(0.0f, 10.0f)]
+    [Range(10f, 100.0f)]
     public float WaterRefillSpeed = 30;
+
+    [Range(2f, 100.0f)]
+    public float FoodUseSpeed = 3;
+    [Range(2f, 100.0f)]
+    public float WaterUseSpeed = 10;
 
     [SerializeField] public GameObject PeeSlider;
 
@@ -25,6 +30,23 @@ public class ResourceTracker : MonoBehaviour
         else if (type == 2)
         {
             WaterQuant += Time.deltaTime * WaterRefillSpeed;
+        }
+        else
+        {
+            Debug.Log("Invalid resource type:" + type);
+        }
+    }
+
+    public void RemoveResource(int type)
+    {
+        if (type == 1)
+        {
+            FoodQuant -= Time.deltaTime * FoodUseSpeed;
+        }
+
+        else if (type == 2)
+        {
+            WaterQuant -= Time.deltaTime * WaterUseSpeed;
         }
         else
         {
@@ -47,6 +69,24 @@ public class ResourceTracker : MonoBehaviour
         else if (type == 2)
         {
             return !close_enough(WaterQuant, 100);
+        }
+        else
+        {
+            Debug.Log("Invalid resource type:" + type);
+            return false;
+        }
+    }
+
+    public bool DoIHave(int type)
+    {
+        if (type == 1)
+        {
+            return !close_enough(FoodQuant, 0);
+        }
+
+        else if (type == 2)
+        {
+            return !close_enough(WaterQuant, 0);
         }
         else
         {
