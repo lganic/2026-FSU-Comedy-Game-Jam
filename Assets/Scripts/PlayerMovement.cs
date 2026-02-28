@@ -82,15 +82,11 @@ public class PlayerInputController : MonoBehaviour
             Debug.DrawRay(transform.position, Vector3.down * hit.distance, Color.green);
         }
 
-        Debug.Log(hit.distance);
-
-
         if (hit.distance < grounding_distance)
         {
             if (jumpAction.action.WasPressedThisFrame())
             {
                 velocity.y = jumpForce;
-                Debug.Log("Did a jumo");
             }
         }
 
