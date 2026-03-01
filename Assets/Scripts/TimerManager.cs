@@ -27,7 +27,7 @@ public class TimerManager : MonoBehaviour
     private void Start()
     {
         ass = gameObject.GetComponent<AudioSource>();
-        StartTimer(20);
+        StartTimer(2000);
     }
 
     // Update is called once per frame
