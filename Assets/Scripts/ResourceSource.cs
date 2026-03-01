@@ -13,6 +13,8 @@ public class ResourceSource : MonoBehaviour
 
     private float StartingAmountInContainer = 0;
 
+    private AudioSource ass;
+
     [SerializeField] GameObject resource_indicator;
 
     void Start()
@@ -21,11 +23,15 @@ public class ResourceSource : MonoBehaviour
         player_reference = GameObject.FindGameObjectWithTag("Player");
 
         StartingAmountInContainer = AmountInContainer;
+
+        ass = gameObject.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        bool added = false;
 
         if (AmountInContainer > 0 && rt.DoINeed(ResourceToAdd))
         {
@@ -35,7 +41,17 @@ public class ResourceSource : MonoBehaviour
             {
                 rt.AddResource(ResourceToAdd);
                 AmountInContainer -= Time.deltaTime;
+                added = true;
             }
+        }
+
+        if(added && !ass.isPlaying)
+        {
+            ass.Play();
+        }
+        if (!added)
+        {
+            ass.Stop();
         }
 
         float quant = AmountInContainer / StartingAmountInContainer;

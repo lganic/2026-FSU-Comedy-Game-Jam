@@ -18,9 +18,12 @@ public class ResourceSubtractor : MonoBehaviour
 
     private bool buttonHeld = false;
 
+    private AudioSource ass;
+
     private void Start()
     {
-        rt = GameObject.FindGameObjectWithTag("GameController").GetComponent<ResourceTracker>();       
+        rt = GameObject.FindGameObjectWithTag("GameController").GetComponent<ResourceTracker>();
+        ass = gameObject.GetComponent<AudioSource>();
     }
 
     void OnEnable()
@@ -39,6 +42,7 @@ public class ResourceSubtractor : MonoBehaviour
 
     void StartParticles()
     {
+        ass.Play();
         if (activeParticles == null)
         {
             activeParticles = Instantiate(
@@ -56,6 +60,7 @@ public class ResourceSubtractor : MonoBehaviour
     {
         if (activeParticles != null)
         {
+            ass.Stop();
             activeParticles.Stop(true, ParticleSystemStopBehavior.StopEmitting);
         }
     }

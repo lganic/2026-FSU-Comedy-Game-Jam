@@ -31,8 +31,8 @@ public class InventoryManager : MonoBehaviour
         // "Remove" it from the bar visually, but keep it as the template
         template.gameObject.SetActive(false);
 
-        BuildBar(4);
-        SetInventory(2);
+        BuildBar(2);
+        SetInventory(0);
     }
 
     public int getNumInInvetory()

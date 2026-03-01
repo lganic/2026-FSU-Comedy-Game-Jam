@@ -130,6 +130,22 @@ public class MovableCameraManager : MonoBehaviour
 
         Vector3 delta_vector = Object_To_Track.transform.position - target_position;
 
+        RaycastHit hit;
+        float maxDistance = Track_Offset_Vector.magnitude; // Maximum distance to check
+
+        if (Physics.Raycast(Object_To_Track.transform.position, -delta_vector, out hit, maxDistance))
+        {
+            Debug.DrawRay(transform.position, delta_vector, Color.green);
+
+
+            Vector3 offset_vector = (float)(hit.distance * .9) * delta_vector.normalized;
+
+            if (offset_vector.magnitude < delta_vector.magnitude)
+            {
+                target_position = Object_To_Track.transform.position - offset_vector;
+            }
+        }
+
         Quaternion target_rotation = Quaternion.LookRotation(delta_vector, Vector3.up);
 
         float lerp_time = (Time.time - Transition_Timer_Start) / Transistion_Length;
