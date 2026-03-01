@@ -17,6 +17,8 @@ public class TimerManager : MonoBehaviour
 
     public string TargetEndScene;
 
+    public AudioClip ThingToSwapAudioToOnceTimerIsFinishedBecauseIAmTooLazyToMakeASeperateSoundSource;
+
     void StartTimer(float length)
     {
         TimerAmount = length;
@@ -27,7 +29,7 @@ public class TimerManager : MonoBehaviour
     private void Start()
     {
         ass = gameObject.GetComponent<AudioSource>();
-        StartTimer(2000);
+        StartTimer(165);
     }
 
     // Update is called once per frame
@@ -52,6 +54,10 @@ public class TimerManager : MonoBehaviour
 
             else
             {
+                // Switch the audio clip in the player to the goal meet. 
+                gameObject.GetComponent<AudioSource>().clip = ThingToSwapAudioToOnceTimerIsFinishedBecauseIAmTooLazyToMakeASeperateSoundSource;
+                gameObject.GetComponent<AudioSource>().volume = 1;
+
                 CountdownText.text = "";
 
                 elapsed_time = TimerAmount - (elapsed_time - leadup - 1);
