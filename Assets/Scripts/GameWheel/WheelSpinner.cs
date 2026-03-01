@@ -23,9 +23,16 @@ public class WheelSpinner : MonoBehaviour
     bool isSpinning = false;
     float spinTime = 0;
 
+    Dictionary<string, int> gameNameToFilter = new Dictionary<string, int>();
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        for (int i = 0; i < gameNames.Count; i++)
+        {
+            gameNameToFilter.Add(gameNames[i], i+1);
+        }
+
         for (int i = 0; i < gameParents.Count; i++)
         {
             WheelCategory[] categoryArray = gameParents[i].GetComponentsInChildren<WheelCategory>();
@@ -75,8 +82,10 @@ public class WheelSpinner : MonoBehaviour
 
     public void ChangeScene(int index)
     {
+        PlayerData.Instance.gameMode = gameNameToFilter[chosenGame];
         Debug.Log("switching");
         //LoadAsync(index);
+        SceneManager.LoadScene(index);
     }
 
     IEnumerator LoadAsync(int levelName)

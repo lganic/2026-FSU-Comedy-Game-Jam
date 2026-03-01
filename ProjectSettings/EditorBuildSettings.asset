@@ -14,6 +14,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/House.unity
     guid: d8076c74ed9503c40a23757d0c28c6be
+  - enabled: 1
+    path: Assets/Scenes/WheelScene.unity
+    guid: 9fcd1742de233384e909eacee8aaddf8
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
