@@ -18,6 +18,8 @@ public class ScoreManager : MonoBehaviour
     private float wiggle_time = 0;
     public bool is_wiggle = false;
 
+    AudioSource ass;
+
     private void WiggleSign()
     {
         is_wiggle = true;
@@ -26,6 +28,7 @@ public class ScoreManager : MonoBehaviour
     
     public void AddToScore(int score)
     {
+        ass.Play();
         CurrentScore += score;
         scoreText.text = CurrentScore.ToString();
         WiggleSign();
@@ -36,12 +39,18 @@ public class ScoreManager : MonoBehaviour
         return i * 4 * x * (1 - x);
     }
 
+    private void Start()
+    {
+        ass = gameObject.GetComponent<AudioSource>();
+    }
+
     private void Update()
     {
         // We just gotta do the animation update if we need to.
         
         if (is_wiggle)
         {
+
             float animation_timestep = (Time.time - wiggle_time) / animationLength;
 
             if (animation_timestep > 1)
