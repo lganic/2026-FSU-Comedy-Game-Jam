@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Transactions;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -75,10 +73,9 @@ public class WheelSpinner : MonoBehaviour
         }
     }
 
-    public void ChangeScene()
+    public void ChangeScene(int index)
     {
         Debug.Log("switching");
-        //int index = SceneManager.GetSceneByName(chosenGame).buildIndex;
         //LoadAsync(index);
     }
 
