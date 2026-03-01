@@ -6,7 +6,14 @@ public class GameModeFilter : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        FilterFor(4);
+        if (PlayerData.Instance)
+        {
+            FilterFor(PlayerData.Instance.gameMode);
+        }
+        else
+        {
+            FilterFor(4);
+        }
     }
 
     void Traverse(Transform t, int gamemode)
@@ -24,7 +31,11 @@ public class GameModeFilter : MonoBehaviour
 
         if (gamemode != 2)
         {
-            // Find, and destroy the cat.
+            if (go.name.StartsWith("CAT"))
+            {
+                Destroy(go);
+                return;
+            }
         }
 
         if (gamemode != 3)
